@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfume Calculator</title>
+    <!-- Link to your CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <!-- Navbar / Header -->
+    <header>
+        <h1>Perfume Material Calculator</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('add_compound') }}">Add Compound</a>
+            <a href="{{ url_for('calc') }}" class="btn btn-success">Go to Calculator</a>
+
+        </nav>
+        <hr>
+    </header>
+
+    <!-- Page Content -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <hr>
+        <p>&copy; 2025 Perfume Calculator</p>
+    </footer>
+
+</body>
+</html>
