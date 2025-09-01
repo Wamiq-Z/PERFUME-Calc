@@ -1,7 +1,7 @@
 from config import db
 
 class Compound(db.Model):
-    # __tablename__ = "compounds"
+    __tablename__ = "Compound"
     # __table_args__ = {"schema": "perfume"}
     
     id = db.Column(db.Integer, primary_key = True)
