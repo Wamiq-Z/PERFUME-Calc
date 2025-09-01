@@ -41,7 +41,7 @@ table {
 }
 
 table th, table td {
-    padding: 10px;
+    padding: 15px;
     border: 1px solid #ddd;
     text-align: left;
 }
@@ -102,4 +102,48 @@ a:hover {
 
 .btn-danger:hover {
     background: #b02a37;
+}
+
+/* Base button style */
+.btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+    color: white;
+}
+
+/* Specific button types */
+.btn-add {
+    background-color: #28a745; /* Green */
+}
+
+.btn-add:hover {
+    background-color: #218838;
+}
+
+.btn-edit {
+    background-color: #007bff; /* Blue */
+}
+
+.btn-edit:hover {
+    background-color: #0069d9;
+}
+
+.btn-delete {
+    background-color: #dc3545; /* Red */
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+.btn-calc {
+    background-color: #17a2b8; /* Teal */
+}
+
+.btn-calc:hover {
+    background-color: #138496;
 }

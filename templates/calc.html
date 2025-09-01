@@ -1,31 +1,45 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <h2>Perfume Calculator</h2>
-<form method="post">
-    <table border="1">
-        <tr>
-            <th>Compound</th>
-            <th>Price/kg</th>
-            <th>Quantity (kg)</th>
-        </tr>
-        {% for compound in compounds %}
-        <tr>
-            <td>{{ compound.name }}</td>
-            <td>{{ compound.price_perkg }}</td>
-            <td><input type="number" step="0.01" name="{{ compound.id }}"></td>
-        </tr>
-        {% endfor %}
-    </table>
-    <button type="submit">Calculate</button>
+<form method="post" action="{{ url_for('calc') }}">
+  <table border="1">
+    <tr>
+      <th>Compound</th>
+      <th>Price/kg</th>
+      <th>Quantity (kg)</th>
+      <th>Actions</th>
+    </tr>
+    {% for compound in compounds %}
+    <tr>
+      <td>{{ compound.name }}</td>
+      <td>{{ compound.price_perkg }}</td>
+      <td>
+        <input
+          type="number"
+          step="0.01"
+          name="{{ compound.id }}"
+          value="{{ request.form.get(compound.id | string, '') }}"
+        />
+      </td>
+      <td>
+        <button type="submit" name="remove_id" value="{{ compound.id }}">
+          Remove Compound
+        </button>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <button type="submit">Calculate</button>
 </form>
 
 {% if selected %}
 <h3>Selected Compounds:</h3>
 <ul>
-    {% for name, qty, price_kg, price in selected %}
-    <li>{{ name }} — {{ qty }} kg × {{ price_kg }} = {{ price }}</li>
-    {% endfor %}
+  {% for name, qty, price_kg, price in selected %}
+  <li>{{ name }} — {{ qty }} kg × Rs. {{ price_kg }} = Rs. {{ price }}</li>
+  {% endfor %}
 </ul>
-<h3>Total Price: {{ total }}</h3>
-{% endif %}
-{% endblock %}
+<h3>Total Quantity: {{ "%.2f"|format(total_quantity) }} kgs</h3>
+<h3>Quantity in grams: {{ "%.3f"|format(total_qty_g) }} g</h3>
+<h3>Price per kg: Rs. {{ "%.2f"|format(avg_price_per_kg) }}</h3>
+<h2>Total Price: Rs. {{ total }}</h2>
+{% endif %} {% endblock %}
