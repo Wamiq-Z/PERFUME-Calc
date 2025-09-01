@@ -1,6 +1,6 @@
 from config import db
 
-class Compound(db.Model):
+class Compounds(db.Model):
     # __tablename__ = "compounds"
     # __table_args__ = {"schema": "perfume"}
     
