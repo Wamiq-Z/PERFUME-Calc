@@ -1,5 +1,28 @@
 {% extends "base.html" %} {% block content %}
 <h2>Perfume Calculator</h2>
+<script>
+async function removeCompound(compoundId) {
+  try {
+    const response = await fetch(`/remove_from_calculator/${compoundId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (response.ok) {
+      const btn = document.querySelector(`button[data-id="${compoundId}"]`);
+      const row = btn.closest("tr");
+      row.remove();
+    } else {
+      console.error("Failed to remove compound");
+    }
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+</script>
+
 <form method="post" action="{{ url_for('calc') }}">
   <table border="1">
     <tr>
@@ -21,7 +44,10 @@
         />
       </td>
       <td>
-        <button type="submit" name="remove_id" value="{{ compound.id }}">
+        <button type="button" 
+                class="btn-remove" 
+                data-id="{{ compound.id }}" 
+                onclick="removeCompound({{ compound.id }})">
           Remove Compound
         </button>
       </td>
