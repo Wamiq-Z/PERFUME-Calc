@@ -86,7 +86,7 @@
     .getElementById("search-bar")
     .addEventListener("input", async function () {
       const query = this.value;
-      if (query.length < 1) {
+      if (query.length < 2) {
         document.getElementById("search-results").innerHTML = "";
         return;
       }
