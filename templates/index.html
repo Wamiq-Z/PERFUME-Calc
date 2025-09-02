@@ -1,6 +1,59 @@
 {% extends "base.html" %} {% block content %}
 
 <h2>Perfume Compounds</h2>
+<div class="search-container">
+  <input 
+    type="text" 
+    id="search-bar" 
+    placeholder="🔍 Search compounds..."
+  />
+  <ul id="search-results"></ul>
+</div>
+
+<script>
+document.getElementById("search-bar").addEventListener("input", async function() {
+    const query = this.value;
+    if (query.length < 1) {
+        document.getElementById("search-results").innerHTML = "";
+        return;
+    }
+
+    const res = await fetch(`/search_compounds?q=${query}`);
+    const data = await res.json();
+
+    let resultsHtml = "";
+    data.forEach(c => {
+        resultsHtml += `
+          <li>
+            ${c.name} — ₹${c.price}
+            ${c.added 
+                ? `<span style="color: green">Added</span>`
+                : `<button data-id="${c.id}" onclick="addCompound(${c.id})">Add</button>`
+            }
+          </li>
+        `;
+    });
+    document.getElementById("search-results").innerHTML = resultsHtml;
+});
+
+async function addCompound(id) {
+    const res = await fetch("/add_search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id })
+    });
+    const data = await res.json();
+    if (data.success) {
+        const btn = document.querySelector(`button[data-id="${id}"]`);
+        if (btn) {
+            btn.outerHTML = `<span style="color: green">Added</span>`;
+        }
+        
+    } else {
+        alert(data.message || "Something went wrong");
+    }
+}
+</script>
 
 <!-- Add New Compound Button -->
 <a href="{{ url_for('add_compound') }}">
@@ -24,13 +77,17 @@
       <td>Rs. {{ compound.price_perkg }}</td>
       <td>
         <!-- Edit Button -->
-        <a href="{{ url_for('edit', id=compound.id) }}">
-          <button class="btn btn-edit" type="button">Edit</button>
-        </a>
+            <a href="{{ url_for('edit', id=compound.id) }}">
+              <button class="btn btn-edit" type="button">Edit</button>
+            </a>
         {% if compound.id not in session.get('calculator', []) %}
-        <a href="{{ url_for('add_to_calculator', id=compound.id) }}">
-          <button class="btn btn-add" type="button">Add to Calculator</button>
-        </a>
+            <a href="{{ url_for('add_to_calculator', id=compound.id) }}">
+              <button class="btn btn-add" 
+              type="button"
+              data-id="{{ compound.id }}" 
+              onclick="addCompound({{ compound.id }})"
+              >Add to Calculator</button>
+            </a>
         {% else %}
         <span style="color: green">Added</span>
 

@@ -5,7 +5,8 @@ from models import Compound
 @app.route("/")
 def index():
     compound = Compound.query.order_by(Compound.id.asc()).all()
-    return render_template("index.html",compounds=compound)
+    calc_ids = session.get("calculator", [])
+    return render_template("index.html",compounds=compound, calc_ids=calc_ids)
 
 @app.route("/add", methods=["GET","POST"])
 def add_compound():
@@ -91,11 +92,9 @@ def add_to_calculator(id):
 @app.route("/remove_from_calculator/<int:id>", methods=["POST"])
 def remove_from_calculator(id):
     calc_ids = session.get("calculator", [])
-    print("-------------",calc_ids)
     if id in calc_ids:
         calc_ids.remove(id)
-        session["calculator"] = calc_ids
-    print("-------------",calc_ids)    
+        session["calculator"] = calc_ids   
     return redirect(url_for("calc"))
 
 @app.route("/remove_from_hs/<int:id>", methods=["POST"])
@@ -108,6 +107,50 @@ def remove_from_hs(id):
             calc_ids.remove(remove_id)
             session["calculator"] = calc_ids
         return redirect(url_for("index"))
+
+
+@app.route("/search_compounds")
+def search_compounds():
+    query = request.args.get("q", "")
+    if not query:
+        return jsonify([])
+
+    results = Compound.query.filter(Compound.name.ilike(f"%{query}%")).all()
+    added_ids = set(session.get("calculator", []))
+    print (added_ids)
+    return jsonify([
+        {
+            "id": c.id,
+            "name": c.name,
+            "price": c.price_perkg,
+            "added": c.id in added_ids 
+        }
+        for c in results
+    ])
+    
+@app.route("/add_search", methods=["POST"])
+def add_search():
+    data = request.get_json()
+    compound_id = data.get("id")
+
+    compound = Compound.query.get(compound_id)
+    if not compound:
+        return jsonify({"message": "Compound not found"}), 404
+
+    compounds = session.get("calculator", [])
+    if compound.id not in compounds:
+        compounds.append(compound.id)
+        session["calculator"] = compounds
+        session.modified = True
+    else:
+        return jsonify({"message": "Already added"})
+
+    return jsonify(success=True)
+
+# @app.route("/perf")
+# def perf():
+
+#     return jsonify({"message:":"Hi lav jain"})
 
 if __name__ == "__main__":
     

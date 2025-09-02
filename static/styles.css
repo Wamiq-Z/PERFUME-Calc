@@ -147,3 +147,74 @@ a:hover {
 .btn-calc:hover {
     background-color: #138496;
 }
+/* Centering search container */
+.search-container {
+  margin: 20px auto;
+  text-align: center;
+  width: 50%;
+  max-width: 500px;
+}
+
+/* Input styling */
+#search-bar {
+  width: 100%;
+  padding: 10px 15px;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+#search-bar:focus {
+  border-color: #6c63ff;
+}
+
+/* Results list */
+#search-results {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+/* Each result item */
+#search-results li {
+  background: #f9f9f9;
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Add button */
+#search-results button {
+  background: #28a745;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#search-results button:hover {
+  background: #218838;
+}
+
+/* Title alignment */
+.title {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.actions-cell .action-buttons {
+    display: flex;
+    gap: 4px; /* space between buttons */
+}
+
+.actions-cell .action-buttons a,
+.actions-cell .action-buttons button {
+    flex: 1;             /* each button takes equal space */
+    text-align: center;  /* center text inside */
+}
