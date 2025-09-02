@@ -58,14 +58,43 @@ async function removeCompound(compoundId) {
 </form>
 
 {% if selected %}
-<h3>Selected Compounds:</h3>
-<ul>
-  {% for name, qty, price_kg, price in selected %}
-  <li>{{ name }} — {{ qty }} kg × Rs. {{ price_kg }} = Rs. {{ price }}</li>
-  {% endfor %}
-</ul>
-<h3>Total Quantity: {{ "%.2f"|format(total_quantity) }} kgs</h3>
-<h3>Quantity in grams: {{ "%.3f"|format(total_qty_g) }} g</h3>
-<h3>Price per kg: Rs. {{ "%.2f"|format(avg_price_per_kg) }}</h3>
-<h2>Total Price: Rs. {{ total }}</h2>
-{% endif %} {% endblock %}
+<div class="selected-section">
+  <div class="selected-box">
+    <h3>Selected Compounds</h3>
+    <ul class="compound-list">
+      {% for name, qty, price_kg, price in selected %}
+      <li class="compound-item">
+        <span class="compound-name">{{ name }}</span>
+        <span class="compound-details">
+          {{ qty }} kg × Rs. {{ price_kg }} = 
+          <strong>Rs. {{ price }}</strong>
+        </span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Right: Totals Table -->
+  <div class="summary-box">
+    <h3>Summary</h3>
+    <table class="summary-table">
+      <tr>
+        <th>Total Quantity</th>
+        <td>{{ "%.2f"|format(total_quantity) }} kgs</td>
+      </tr>
+      <tr>
+        <th>Quantity in grams</th>
+        <td>{{ "%.3f"|format(total_qty_g) }} g</td>
+      </tr>
+      <tr>
+        <th>Price per kg</th>
+        <td>Rs. {{ "%.2f"|format(avg_price_per_kg) }}</td>
+      </tr>
+      <tr>
+        <th>Total Price</th>
+        <td><strong>Rs. {{ total }}</strong></td>
+      </tr>
+    </table>
+  </div>
+</div>
+{% endif %}{% endblock %}
