@@ -58,7 +58,7 @@ def calc():
             session["calculator"] = calc_ids
         return redirect(url_for("calc"))
 
-    compounds = Compound.query.filter(Compound.id.in_(calc_ids)).all()
+    compounds = Compound.query.filter(Compound.id.in_(calc_ids)).order_by(Compound.name.asc()).all()
     selected = []
     total_price = 0
     total_quantity = 0

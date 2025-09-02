@@ -523,3 +523,21 @@ a:hover {
   box-shadow: 0 0 5px rgba(191, 167, 106, 0.5);
 }
 
+/* Small delicate welcome text */
+.welcome-text {
+  font-family: 'Raleway', sans-serif;  /* light, modern font */
+  font-size: 1rem;
+  font-weight: 300;
+  color: #615540;  /* soft muted gold / brown */
+  margin: 0 0 5px 0;
+  letter-spacing: 0.5px;
+}
+
+/* Main brand header remains luxury serif */
+.brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #2f2f2f;
+  margin: 0;
+}
