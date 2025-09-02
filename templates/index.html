@@ -28,7 +28,8 @@ document.getElementById("search-bar").addEventListener("input", async function()
             ${c.name} — ₹${c.price}
             ${c.added 
                 ? `<span style="color: green">Added</span>`
-                : `<button data-id="${c.id}" onclick="addCompound(${c.id})">Add</button>`
+                : `<button data-id="${c.id}" 
+                onclick="addCompound(${c.id})">Add</button>`
             }
           </li>
         `;
@@ -81,15 +82,14 @@ async function addCompound(id) {
               <button class="btn btn-edit" type="button">Edit</button>
             </a>
         {% if compound.id not in session.get('calculator', []) %}
-            <a href="{{ url_for('add_to_calculator', id=compound.id) }}">
-              <button class="btn btn-add" 
-              type="button"
-              data-id="{{ compound.id }}" 
-              onclick="addCompound({{ compound.id }})"
-              >Add to Calculator</button>
-            </a>
+          <button class="btn btn-add" 
+                  type="button"
+                  data-id="{{ compound.id }}" 
+                  onclick="addCompound({{ compound.id }})">
+            Add to Calculator
+          </button>
         {% else %}
-        <span style="color: green">Added</span>
+          <span style="color: green">Added</span>
 
         <form
           method="post"
