@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Perfume Calculator</title>
-    <!-- Link to your CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <!-- Luxury Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Raleway:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <!-- Navbar / Header -->
-    <header>
-        <h1>Perfume Material Calculator</h1>
-        <nav>
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('calc') }}" class="btn btn-success">Go to Calculator</a>
-
-        </nav>
-        <hr>
+    <header class="navbar">
+      <div class="nav-left">
+        <h1 class="brand">Fragrance Material Calculator</h1>
+      </div>
+      <nav class="nav-links">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('calc') }}" class="nav-btn">Go to Calculator</a>
+      </nav>
     </header>
 
     <!-- Page Content -->
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+    <main class="content">{% block content %} {% endblock %}</main>
 
     <!-- Footer -->
-    <footer>
-        <hr>
-        <p>&copy; 2025 Perfume Calculator</p>
+    <footer class="footer">
+      <p>&copy; 2025 Perfume Calculator • Crafted by ✨Wiz</p>
     </footer>
-
-</body>
+  </body>
 </html>

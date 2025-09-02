@@ -24,13 +24,16 @@ async function removeCompound(compoundId) {
 </script>
 
 <form method="post" action="{{ url_for('calc') }}">
-  <table border="1">
+  <table class="lux-table">
+  <thead>
     <tr>
       <th>Compound</th>
       <th>Price/kg</th>
       <th>Quantity (kg)</th>
       <th>Actions</th>
     </tr>
+  </thead>
+  <tbody>
     {% for compound in compounds %}
     <tr>
       <td>{{ compound.name }}</td>
@@ -41,19 +44,22 @@ async function removeCompound(compoundId) {
           step="0.01"
           name="{{ compound.id }}"
           value="{{ request.form.get(compound.id | string, '') }}"
+          class="lux-input"
         />
       </td>
       <td>
         <button type="button" 
-                class="btn-remove" 
+                class="btn btn-remove" 
                 data-id="{{ compound.id }}" 
                 onclick="removeCompound({{ compound.id }})">
-          Remove Compound
+          Remove
         </button>
       </td>
     </tr>
     {% endfor %}
-  </table>
+  </tbody>
+</table>
+
   <button type="submit">Calculate</button>
 </form>
 

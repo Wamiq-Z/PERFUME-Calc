@@ -1,26 +1,103 @@
-/* Reset some default browser styles */
-body, h1, h2, h3, p, ul, li, form {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-/* General page layout */
+/* Global fonts and colors */
 body {
-    background-color: #f8f9fa;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
+  margin: 0;
+  font-family: 'Raleway', sans-serif;
+  background: #fdfcf9; /* warm ivory */
+  color: #2f2f2f;
+  line-height: 1.6;
 }
 
-/* Header */
-header {
-    background: #343a40;
-    color: #fff;
-    padding: 15px;
-    text-align: center;
-    border-radius: 8px;
-    margin-bottom: 20px;
+h1, h2, h3 {
+  font-family: 'Cormorant Garamond', serif;
+  color: #2a2a2a;
+  letter-spacing: 0.5px;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 18px 35px;
+  border-bottom: 1px solid #e8e1d4;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #3b3b3b;
+}
+
+/* Navigation links */
+.nav-links a {
+  margin-left: 25px;
+  text-decoration: none;
+  color: #4b4b4b;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #a9895e; /* muted gold */
+}
+
+/* Luxury Button */
+.nav-btn {
+  padding: 9px 18px;
+  background: linear-gradient(135deg, #bfa76a, #9c7e45);
+  color: #fff !important;
+  border-radius: 25px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  background: linear-gradient(135deg, #9c7e45, #7c6232);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Page content */
+.content {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 25px;
+  background: #fff;
+  border-top: 1px solid #e8e1d4;
+  margin-top: 50px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+
+/* Page content */
+.content {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: #fff;
+  border-top: 2px solid #e6decf;
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: #666;
 }
 
 /* Container */
@@ -284,3 +361,165 @@ a:hover {
   font-weight: bold;
   color: #1d4ed8;
 }
+/* Section title with luxury feel */
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #3b3b3b;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* Container for search + button */
+.search-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+/* Search box */
+.search-container input {
+  width: 260px;
+  padding: 12px 16px;
+  border-radius: 25px;
+  border: 1px solid #d1c4a9;
+  background: #fffdf8;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  outline: none;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.search-container input:focus {
+  border-color: #c5a880;
+  box-shadow: 0 0 8px rgba(197,168,128,0.4);
+}
+
+.btn-luxury {
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+.btn-luxury:hover {
+  background: linear-gradient(135deg, #b8860b, #8b6914);
+  transform: translateY(-2px);
+}
+
+/* Luxury Table */
+.lux-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  background: #fffdf9;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+
+.lux-table thead {
+  background: linear-gradient(135deg, #bfa76a, #9c7e45);
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+}
+
+.lux-table th, .lux-table td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid #e8e1d4;
+}
+
+.lux-table tbody tr:nth-child(even) {
+  background: #fdfcf9;
+}
+
+.lux-table tbody tr:hover {
+  background: #f9f4ea;
+  transition: 0.3s;
+}
+
+/* Status badge */
+.status-added {
+  color: #2e7d32;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+/* Buttons inside table */
+.btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin: 2px 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-edit {
+  background: #dcd6c9;
+  color: #333;
+}
+
+.btn-edit:hover {
+  background: #c8bfae;
+}
+
+.btn-add {
+  background: linear-gradient(135deg, #bfa76a, #9c7e45);
+  color: #fff;
+}
+
+.btn-add:hover {
+  background: linear-gradient(135deg, #9c7e45, #7c6232);
+  transform: translateY(-1px);
+}
+
+.btn-remove {
+  background: #e2b2a2;
+  color: #5a2a1d;
+}
+
+.btn-remove:hover {
+  background: #d59785;
+}
+
+.btn-danger {
+  background: #b33a3a;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #922d2d;
+}
+/* Input styling inside luxury table */
+.lux-input {
+  width: 90px;               
+  padding: 8px 12px;        
+  border: 1px solid #d4c7a9;
+  border-radius: 10px;     
+  font-size: 1rem;           
+  font-family:  serif;
+  background: #fffdf9;
+  text-align: left;
+  transition: 0.2s;
+}
+
+.lux-input:focus {
+  outline: none;
+  border-color: #bfa76a;
+  box-shadow: 0 0 5px rgba(191, 167, 106, 0.5);
+}
+
