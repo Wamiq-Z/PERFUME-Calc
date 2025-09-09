@@ -39,13 +39,19 @@ async function removeCompound(compoundId) {
       <td>{{ compound.name }}</td>
       <td>Rs. {{ compound.price_perkg }}</td>
       <td>
-        <input
-          type="number"
-          step="0.01"
-          name="{{ compound.id }}"
-          value="{{ request.form.get(compound.id | string, '') }}"
-          class="lux-input"
-        />
+        <div class="quantity-input">
+            <input
+              type="number"
+              step="0.01"
+              name="{{ compound.id }}"
+              value="{{ request.form.get(compound.id | string, '') }}"
+              class="lux-input"
+            />
+            <select name="{{ compound.id }}_unit" class="lux-select">
+              <option value="kg" {% if request.form.get(compound.id ~ '_unit', 'kg') == 'kg' %}selected{% endif %}>kg</option>
+              <option value="g" {% if request.form.get(compound.id ~ '_unit') == 'g' %}selected{% endif %}>g</option>
+            </select>
+          </div>
       </td>
       <td>
         <button type="button" 
@@ -60,7 +66,15 @@ async function removeCompound(compoundId) {
   </tbody>
 </table>
 
-  <button type="submit">Calculate</button>
+  <div class="button-group">
+  <button class="btn btn-remove" 
+          type="submit" 
+          name="clear_all" 
+          value="1">
+    Clear All
+  </button>
+  <button class="btn btn-add" type="submit">Calculate</button>
+</div>
 </form>
 
 {% if selected %}
@@ -70,10 +84,10 @@ async function removeCompound(compoundId) {
     <ul class="compound-list">
       {% for name, qty, price_kg, price in selected %}
       <li class="compound-item">
-        <span class="compound-name">{{ name }}</span>
+        <span class="compound-name">{{ name }} --> </span>
         <span class="compound-details">
-          {{ qty }} kg × Rs. {{ price_kg }} = 
-          <strong>Rs. {{ price }}</strong>
+          {{ "%.4f"|format(qty) }} kg × Rs. {{ price_kg }} = 
+          <strong>Rs. {{ "%.2f" | format (price) }} </strong>
         </span>
       </li>
       {% endfor %}
@@ -90,7 +104,7 @@ async function removeCompound(compoundId) {
       </tr>
       <tr>
         <th>Quantity in grams</th>
-        <td>{{ "%.3f"|format(total_qty_g) }} g</td>
+        <td>{{ "%.2f"|format(total_qty_g) }} g</td>
       </tr>
       <tr>
         <th>Price per kg</th>
@@ -98,7 +112,7 @@ async function removeCompound(compoundId) {
       </tr>
       <tr>
         <th>Total Price</th>
-        <td><strong>Rs. {{ total }}</strong></td>
+        <td><strong>Rs. {{ "%.2f"|format(total) }}</strong></td>
       </tr>
     </table>
   </div>

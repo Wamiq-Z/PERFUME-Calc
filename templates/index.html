@@ -101,7 +101,7 @@
             ${c.name} — ₹${c.price}
             ${
               c.added
-                ? `<span style="color: green">Added</span>`
+                ? `<span  class="status-added">✔ Added</span>`
                 : `<button data-id="${c.id}" 
                 onclick="addCompound(${c.id})">Add</button>`
             }
@@ -121,7 +121,7 @@
     if (data.success) {
       const btn = document.querySelector(`button[data-id="${id}"]`);
       if (btn) {
-        btn.outerHTML = `<span style="color: green">Added</span>`;
+        btn.outerHTML = `<span  class="status-added">✔ Added</span>`;
       }
     } else {
       alert(data.message || "Something went wrong");

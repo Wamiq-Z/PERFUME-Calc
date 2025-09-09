@@ -50,6 +50,11 @@ def delete(id):
 @app.route("/calc", methods=["GET", "POST"])
 def calc():
     calc_ids = session.get("calculator", [])
+    
+    if request.form.get("clear_all"):
+        session["calculator"] = []
+        return redirect(url_for("calc"))
+    
     remove_id = request.form.get("remove_id")
     if remove_id:
         remove_id = int(remove_id)
@@ -66,12 +71,22 @@ def calc():
     if request.method == "POST":
         for compound in compounds:
             qty = request.form.get(str(compound.id))
+            unit = request.form.get(f"{compound.id}_unit", "kg")
+
             if qty and float(qty) > 0:
                 qty = float(qty)
+                if unit == "g":
+                        qty = qty / 1000.0  # convert grams to kg
                 price = qty * compound.price_perkg
-                selected.append((compound.name, qty, compound.price_perkg, price))
+                
+                
+                selected.append((compound.name, 
+                                 qty, 
+                                 compound.price_perkg, 
+                                 price))
                 total_price += price
                 total_quantity += qty
+                
     avg_price_per_kg = total_price / total_quantity if total_quantity > 0 else 0
     total_qty_g = total_quantity * 1000
     return render_template(

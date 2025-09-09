@@ -541,3 +541,20 @@ a:hover {
   color: #2f2f2f;
   margin: 0;
 }
+.quantity-input {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.lux-select {
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.button-group {
+  display: flex;
+  gap: 10px;   /* space between buttons */
+  justify-content: center; /* center them */
+  margin-top: 15px;
+}
