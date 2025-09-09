@@ -172,7 +172,14 @@ def add_search():
     else:
         return jsonify({"message": "Already added"})
 
-    return jsonify(success=True)
+    return jsonify({
+        "success": True,
+        "compound": {
+            "id": compound.id,
+            "name": compound.name,
+            "price": compound.price_perkg  # or compound.price_perkg, whichever field you use
+        }
+    })
 
 
 # @app.route("/perf")

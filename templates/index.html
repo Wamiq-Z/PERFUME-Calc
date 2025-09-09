@@ -99,9 +99,13 @@
         resultsHtml += `
           <li>
             ${c.name} — ₹${c.price}
+            <div style="display: inline-flex; gap: 8px; margin-left: 10px;">
+            <a href="/edit/${c.id}">
+              <button class="btn btn-edit">Edit</button>
+            </a>
             ${
               c.added
-                ? `<span  class="status-added">✔ Added</span>`
+                ? `<span  class="status-added">Added</span>`
                 : `<button data-id="${c.id}" 
                 onclick="addCompound(${c.id})">Add</button>`
             }

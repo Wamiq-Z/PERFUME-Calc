@@ -22,7 +22,14 @@ async function removeCompound(compoundId) {
   }
 }
 </script>
-
+<div class="search-container">
+  <input 
+    type="text" 
+    id="search-bar" 
+    placeholder="🔍 Search compounds..."
+  />
+  <ul id="search-results"></ul>
+</div>
 <form method="post" action="{{ url_for('calc') }}">
   <table class="lux-table">
   <thead>
@@ -117,4 +124,90 @@ async function removeCompound(compoundId) {
     </table>
   </div>
 </div>
-{% endif %}{% endblock %}
+{% endif %}
+<script>
+  document
+    .getElementById("search-bar")
+    .addEventListener("input", async function () {
+      const query = this.value;
+      if (query.length < 2) {
+        document.getElementById("search-results").innerHTML = "";
+        return;
+      }
+
+      const res = await fetch(`/search_compounds?q=${query}`);
+      const data = await res.json();
+
+      let resultsHtml = "";
+      data.forEach((c) => {
+        resultsHtml += `
+          <li>
+            ${c.name} — ₹${c.price}
+            <div style="display: inline-flex; gap: 8px; margin-left: 10px;">
+            <a href="/edit/${c.id}">
+              <button class="btn btn-edit">Edit</button>
+            </a>
+            ${
+              c.added
+                ? `<span  class="status-added">Added</span>`
+                : `<button data-id="${c.id}" 
+                onclick="addCompound(${c.id})">Add</button>`
+            }
+          </li>
+        `;
+      });
+      document.getElementById("search-results").innerHTML = resultsHtml;
+    });
+  
+  async function addCompound(compoundId) {
+    const res = await fetch("/add_search", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: compoundId })
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      // Replace Add button with "Added"
+      const btn = document.querySelector(`button[data-id="${compoundId}"]`);
+      if (btn) {
+        btn.outerHTML = `<span class="status-added">Added</span>`;
+      }
+
+      // Now update the calculator table dynamically
+      const tableBody = document.querySelector(".lux-table tbody");
+
+      // Avoid duplicate row if already exists
+      if (!document.querySelector(`tr[data-row-id="${compoundId}"]`)) {
+        const newRow = document.createElement("tr");
+        newRow.setAttribute("data-row-id", compoundId);
+        newRow.innerHTML = `
+          <td>${data.compound.name}</td>
+          <td>Rs. ${data.compound.price}</td>
+          <td>
+            <div class="quantity-input">
+              <input type="number" step="0.01" 
+                    name="${compoundId}" 
+                    value="" class="lux-input" />
+              <select name="${compoundId}_unit" class="lux-select">
+                <option value="kg" selected>kg</option>
+                <option value="g">g</option>
+              </select>
+            </div>
+          </td>
+          <td>
+            <button type="button" class="btn btn-remove" 
+                    data-id="${compoundId}" 
+                    onclick="removeCompound(${compoundId})">
+              Remove
+            </button>
+          </td>
+        `;
+        tableBody.appendChild(newRow);
+      }
+    } else {
+      alert(data.message || "Failed to add compound");
+    }
+}
+  </script>
+{% endblock %}
